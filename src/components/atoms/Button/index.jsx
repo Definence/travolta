@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { StyledButton } from './styled'
+import StyledButton from './styled'
 
-const Button = ({ type }) => {
-  return <StyledButton type={type} />
+const Button = ({ kind, children, ...props }) => {
+return <StyledButton kind={kind} {...props}>{children}</StyledButton>
 }
 
 export default Button
