@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import { Autocomplete } from '@material-ui/lab'
 
 const Input = ({
-  value, type, options, onChange, label, classes, defaultValue, invalid
+  value, type, options, onChange, label, classes, defaultValue, invalid,
+  pure
 }) => {
   const inputProps = {
     onChange,
@@ -12,7 +13,7 @@ const Input = ({
     classes,
     label,
     error: invalid,
-    InputLabelProps: { shrink: true },
+    ...!pure && {InputLabelProps: { shrink: true }},
     defaultValue
   }
 

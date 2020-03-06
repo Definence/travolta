@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import Box from '@material-ui/core/Box'
 
-import { palette } from '../../../constants/theme'
-import Button from '../../atoms/Button'
+import { palette } from '../../../../constants/theme'
+import Button from '../../../atoms/Button'
 
 export const HotelBlock = styled(Box)`
-  height: min-content;
+  height: max-content;
   display: flex;
   background-color: ${palette.white[0]};
   border: 1px solid ${palette.dark[0]};

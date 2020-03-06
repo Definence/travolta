@@ -14,6 +14,7 @@ export default styled.button`
   color: ${palette.white[0]};
   outline: none;
   appearance: none;
+  cursor: pointer;
   border: 0;
   ${({ kind }) => kind === 'primary' && {
     'transition': 'background-color 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out',
@@ -21,5 +22,8 @@ export default styled.button`
     'letter-spacing': '0.06rem',
     'border-radius': '0.6rem',
     'padding': '0.7rem 1.5rem',
+    '&:hover, &:focus, &:active': {
+      'background-color': palette.pink[1]
+    }
   }};
 `

@@ -1,81 +1,62 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
-import InfiniteScroll from 'react-infinite-scroller'
+import throttle from 'lodash.throttle'
 
 import { Context } from '../../../services/context'
 import Main from '../../templates/Main'
-import { hotels } from '../../../api/responses' // TODO remove
-import { HotelBlock, StyledButton } from './styled'
-import Heading from '../../atoms/Heading'
-import Image from '../../atoms/Image'
-import Paragraph from '../../atoms/Paragraph'
-import Spinner from '../../atoms/Spinner'
-import HotelStars from '../../molecules/Hotel/Stars'
+import { hotels } from '../../../api/responses'
+import HotelList from '../../molecules/Hotel/List'
+import HotelFilter from '../../molecules/Hotel/Filter'
 
 class HotelsPage extends React.PureComponent {
   static contextType = Context
+  state = { page: 0, isFetching: false, matchedQuantity: hotels.length, filter: { name: null, rating: null } }
 
-  state = { page: 0, isFetching: false }
-
-  fetchHotels = () => {
+  fetchHotels = throttle(() => {
+    console.log('Fetch')
     const { dispatch } = this.context
-    const { page, isFetching } = this.state
+    const { page, isFetching, filter: { name, rating } } = this.state
     const perPage = 10
-    const fetchedHotels = hotels.slice(page * perPage, (page + 1) * perPage)
+    const matchedHotels = hotels.filter((h) => {
+      return (
+        (!name || (h.name.toLowerCase().includes(name.toLowerCase()))) &&
+        (!rating || (h.hotel_rating === rating))
+      )
+    })
+
+    const fetchedHotels = matchedHotels.slice(page * perPage, (page + 1) * perPage)
 
     if (isFetching === false) (
       setTimeout(() => {
-        dispatch({ type: 'FETCH_HOTELS', payload: fetchedHotels })
-        this.setState((prevState) => ({ page: prevState.page + 1, isFetching: false }))
-      }, 1000)
+        this.setState((prevState) => ({
+          page: prevState.page + 1,
+          isFetching: false,
+          matchedQuantity: matchedHotels.length
+        }), dispatch({ type: 'FETCH_HOTELS', payload: fetchedHotels }))
+      }, 800)
     )
     this.setState({ isFetching: true })
-  }
+  }, 1500)
 
-  buildHotelBlock = (hotel) => {
-    const min = 1
-    const max = 10
-    let random = Math.floor(Math.random() * (max - min) + min)
-    const image = `${random}.jpg`
-    const { name, id, address, city, state, country_code, hotel_rating } = hotel
-    const addressItems = [address, city, state, country_code].filter((el) => el)
-
-    return (
-      <HotelBlock key={id}>
-        <Image image={image} />
-
-        <Box ml='1rem' display='flex' flexDirection='column' justifyContent='space-around'>
-          <Heading level={4}>{name}</Heading>
-          <HotelStars quantity={hotel_rating} />
-          <Paragraph>{addressItems.join(', ')}</Paragraph>
-        </Box>
-
-        <StyledButton kind='primary'>SHOW DETAILS</StyledButton>
-      </HotelBlock>
-    )
+  changeFilter = (params) => {
+    const { dispatch } = this.context
+    dispatch({ type: 'RESET_HOTELS' })
+    this.setState((prevState) => ({ page: 0, filter: { ...prevState, ...params } }))
   }
 
   render() {
     const { state } = this.context
+    const { matchedQuantity, filter } = this.state
 
     return (
       <Main>
-        {hotels.length ? (
-          <InfiniteScroll
-            pageStart={this.state.page}
-            loadMore={this.fetchHotels}
-            hasMore={hotels.length !== state.hotels.length}
-            loader={<Box key={0} m='1rem'><Spinner /></Box>}
-          >
-            {state.hotels.map(this.buildHotelBlock)}
-          </InfiniteScroll>
-        ) : (
-          <Heading>To hotels available</Heading>
-        )}
+        <Box display='flex'>
+          <HotelFilter filter={filter} changeFilter={this.changeFilter} />
+          <HotelList fetchHotels={this.fetchHotels} page={state.page} matchedQuantity={matchedQuantity}  hotels={state.hotels} />
+        </Box>
       </Main>
     )
   }
 }
 
-export default withRouter(HotelsPage)
+export default HotelsPage

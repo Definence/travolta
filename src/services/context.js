@@ -10,6 +10,8 @@ let reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_HOTELS':
       return { ...state, hotels: [...state.hotels, ...action.payload] }
+      case 'RESET_HOTELS':
+        return { ...state, hotels: [] }
     default:
       return state
   }
