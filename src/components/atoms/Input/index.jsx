@@ -3,7 +3,9 @@ import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import { Autocomplete } from '@material-ui/lab'
 
-const Input = ({ value, type, options, onChange, label, classes, defaultValue, invalid, ...props }) => {
+const Input = ({
+  value, type, options, onChange, label, classes, defaultValue, invalid
+}) => {
   const inputProps = {
     onChange,
     type,
@@ -25,7 +27,7 @@ const Input = ({ value, type, options, onChange, label, classes, defaultValue, i
       }}
     />
   )
-  return <TextField {...inputProps} variant='outlined' />
+  return <TextField {...inputProps} value={value} variant='outlined' />
 }
 
 

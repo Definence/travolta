@@ -6,7 +6,7 @@ const fontSize = ({ level }) => `${0.75 + (1 * (1 / level))}rem`
 
 export default css`
   font-family: ${fonts.primary};
-  font-weight: 500;
+  font-weight: 600;
   font-size: ${fontSize};
   margin: 0;
 `

@@ -10,7 +10,7 @@ const bgColor = ({ kind }) => {
 export default styled.button`
   height: min-content;
   background-color: ${bgColor};
-  padding: 0.45rem 1rem;
+  padding: 0.4rem 0.9rem;
   color: ${palette.white[0]};
   outline: none;
   appearance: none;
@@ -19,7 +19,7 @@ export default styled.button`
     'transition': 'background-color 250ms ease-out, color 250ms ease-out, border-color 250ms ease-out',
     'font-weight': '700',
     'letter-spacing': '0.06rem',
-    'border-radius': '0.8rem',
-    'padding': '1rem 2.5rem',
+    'border-radius': '0.6rem',
+    'padding': '0.7rem 1.5rem',
   }};
 `

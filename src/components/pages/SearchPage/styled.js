@@ -23,9 +23,3 @@ export const StyledColumn = styled(Box)`
     margin-bottom: 1rem;
   }
 `
-
-export const BtnWrapper = styled(Box)`
-  > * {
-    margin-left: 0.5rem;
-  }
-`

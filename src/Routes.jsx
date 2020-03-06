@@ -1,17 +1,33 @@
 import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { createGlobalStyle } from 'styled-components'
+
+import { ContextProvider } from './services/context'
+import { palette } from './constants/theme'
 
 const SearchPage = React.lazy(() => import('./components/pages/SearchPage'))
+const HotelsPage = React.lazy(() => import('./components/pages/HotelsPage'))
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    background-color: ${palette.grayscale[1]};
+  }
+`
 
 function Routes() {
   return (
-    <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route path='/' component={SearchPage} />
-        </Switch>
-      </Suspense>
-    </Router>
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContextProvider>
+        <Router>
+          <Switch>
+            <Route exact path='/' component={SearchPage} />
+            <Route exact path='/hotels' component={HotelsPage} />
+          </Switch>
+        </Router>
+      </ContextProvider>
+      <GlobalStyle />
+    </Suspense>
   )
 }
 
