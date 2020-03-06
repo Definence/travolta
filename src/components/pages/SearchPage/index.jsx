@@ -12,11 +12,15 @@ import Main from '../../templates/Main'
 import { isRequired, composeValidators, minLength1, maxLength5 } from '../../../services/validator/fieldLevel'
 import FinalField from '../../../components/molecules/FinalField'
 import { destinations } from '../../../api/responses'
-import { StyledContent, StyledForm, StyledColumn } from './styled'
+import { StyledContent, StyledForm, StyledColumn, BtnWrapper } from './styled'
 
 const SearchPage = () => {
   const destinationOpts = destinations.map((d) => ({ label: d.name, value: d.id }))
-  const handleSubmit = (params) => console.log('submit', params)
+  const handleSubmit = (params) => {
+    setTimeout(() => {
+      console.log('OK')
+    }, 1500)
+  }
 
   return (
     <Main>
@@ -27,11 +31,11 @@ const SearchPage = () => {
             <Heading>Travolta</Heading>
           </Box>
 
-          <Box alignItems='center' display='flex'>
+          <BtnWrapper alignItems='center' display='flex'>
             <Button kind='secondary'>About Us</Button>
             <Button kind='secondary'>My bookings</Button>
             <Button kind='secondary'>Sign in</Button>
-          </Box>
+          </BtnWrapper>
         </Box>
 
         <StyledContent>
@@ -42,8 +46,8 @@ const SearchPage = () => {
                 <StyledForm onSubmit={handleSubmit} id='form'>
                   <StyledColumn>
                     <Field validate={isRequired} component={FinalField} options={destinationOpts} type='autocomplete' name='destination' label='Destination' />
-                    <Field validate={isRequired} component={FinalField} label='Check in' name='check_in' />
-                    <Field validate={isRequired} component={FinalField} label='Check out' name='check_out' />
+                    <Field validate={isRequired} component={FinalField} label='Check in' name='check_in' type='date' />
+                    <Field validate={isRequired} component={FinalField} label='Check out' name='check_out' type='date' />
                   </StyledColumn>
 
                   <StyledColumn>

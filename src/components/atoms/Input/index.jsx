@@ -3,13 +3,15 @@ import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import { Autocomplete } from '@material-ui/lab'
 
-const Input = ({ value, type, options, onChange, label, classes, defaultValue, ...props }) => {
+const Input = ({ value, type, options, onChange, label, classes, defaultValue, invalid, ...props }) => {
   const inputProps = {
     onChange,
     type,
     classes,
     label,
-    defaultValue,
+    error: invalid,
+    InputLabelProps: { shrink: true },
+    defaultValue
   }
 
   if (type === 'autocomplete') return (
