@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
+import InfiniteScroll from 'react-infinite-scroller'
 
 import { Context } from '../../../services/context'
 import Main from '../../templates/Main'
@@ -14,9 +15,23 @@ import HotelStars from '../../molecules/Hotel/Stars'
 class HotelsPage extends React.PureComponent {
   static contextType = Context
 
-  componentWillMount() {
-    // const { hotels } = this.context.state
-    // if (!hotels) this.props.history.push('/')
+  state = { page: 0, isFetching: false }
+
+  fetchHotels = () => {
+    const { dispatch } = this.context
+    const { page, isFetching } = this.state
+    const perPage = 10
+    const fetchedHotels = hotels.slice(page * perPage, (page + 1) * perPage)
+
+    console.log('Fetch')
+
+    this.setState({ isFetching: true })
+    if (isFetching === false) (
+      setTimeout(() => {
+        dispatch({ type: 'FETCH_HOTELS', payload: fetchedHotels })
+        this.setState((prevState) => ({ page: prevState.page + 1, isFetching: false }))
+      }, 1000)
+    )
   }
 
   buildHotelBlock = (hotel) => {
@@ -24,7 +39,7 @@ class HotelsPage extends React.PureComponent {
     const max = 10
     let random = Math.floor(Math.random() * (max - min) + min)
     const image = `${random}.jpg`
-    const { name, id, address, city, state, country_code, hotel_rating, phone_number, website } = hotel
+    const { name, id, address, city, state, country_code, hotel_rating } = hotel
     const addressItems = [address, city, state, country_code].filter((el) => el)
 
     return (
@@ -43,16 +58,25 @@ class HotelsPage extends React.PureComponent {
   }
 
   render() {
+    const { state } = this.context
+
     return (
       <Main>
-        {this.props.hotels.map(this.buildHotelBlock)}
+        {hotels && hotels.length ? (
+          <InfiniteScroll
+            pageStart={this.state.page}
+            loadMore={this.fetchHotels}
+            hasMore={hotels.length !== state.hotels.length}
+            loader={<div className="loader" key={0}>Loading ...</div>}
+          >
+            {state.hotels.map(this.buildHotelBlock)}
+          </InfiniteScroll>
+        ) : (
+          <Heading>To hotels available</Heading>
+        )}
       </Main>
     )
   }
-}
-
-HotelsPage.defaultProps = {
-  hotels: hotels.slice(0, 10) // TODO remove
 }
 
 export default withRouter(HotelsPage)

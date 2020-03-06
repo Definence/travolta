@@ -5,7 +5,6 @@ import { palette } from '../../../constants/theme'
 import Button from '../../atoms/Button'
 
 export const HotelBlock = styled(Box)`
-  width: 60%;
   height: min-content;
   display: flex;
   background-color: ${palette.white[0]};

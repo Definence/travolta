@@ -19,8 +19,6 @@ class SearchPage extends React.Component {
 
   handleSubmit = () => {
     setTimeout(() => {
-      let { dispatch } = this.context
-      dispatch({ type: 'FETCH_HOTELS', payload: hotels.slice(0, 10) })
       this.props.history.push('/hotels')
     }, 1500)
   }
