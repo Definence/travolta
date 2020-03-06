@@ -10,6 +10,7 @@ import { HotelBlock, StyledButton } from './styled'
 import Heading from '../../atoms/Heading'
 import Image from '../../atoms/Image'
 import Paragraph from '../../atoms/Paragraph'
+import Spinner from '../../atoms/Spinner'
 import HotelStars from '../../molecules/Hotel/Stars'
 
 class HotelsPage extends React.PureComponent {
@@ -23,15 +24,13 @@ class HotelsPage extends React.PureComponent {
     const perPage = 10
     const fetchedHotels = hotels.slice(page * perPage, (page + 1) * perPage)
 
-    console.log('Fetch')
-
-    this.setState({ isFetching: true })
     if (isFetching === false) (
       setTimeout(() => {
         dispatch({ type: 'FETCH_HOTELS', payload: fetchedHotels })
         this.setState((prevState) => ({ page: prevState.page + 1, isFetching: false }))
       }, 1000)
     )
+    this.setState({ isFetching: true })
   }
 
   buildHotelBlock = (hotel) => {
@@ -62,12 +61,12 @@ class HotelsPage extends React.PureComponent {
 
     return (
       <Main>
-        {hotels && hotels.length ? (
+        {hotels.length ? (
           <InfiniteScroll
             pageStart={this.state.page}
             loadMore={this.fetchHotels}
             hasMore={hotels.length !== state.hotels.length}
-            loader={<div className="loader" key={0}>Loading ...</div>}
+            loader={<Box key={0} m='1rem'><Spinner /></Box>}
           >
             {state.hotels.map(this.buildHotelBlock)}
           </InfiniteScroll>

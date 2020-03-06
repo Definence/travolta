@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 
 import { ContextProvider } from './services/context'
 import { palette } from './constants/theme'
+import Spinner from './components/atoms/Spinner'
 
 const SearchPage = React.lazy(() => import('./components/pages/SearchPage'))
 const HotelsPage = React.lazy(() => import('./components/pages/HotelsPage'))
@@ -17,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
 function Routes() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner />}>
       <ContextProvider>
         <Router>
           <Switch>
