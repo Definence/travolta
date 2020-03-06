@@ -8,14 +8,7 @@ const FinalField = ({ meta, input, ...props }) => {
     ...props,
     ...input,
     invalid: meta.touched && !!meta.error,
-    syncError: meta.error,
-    ...props.type === 'select' && {
-      onBlur: () => {
-        const value = Array.isArray(input.value) && (input.value.length === 0) ? '' : undefined
-        return input.onBlur(value)
-      }
-
-    }
+    syncError: meta.error
   }
 
   return <Field {...fieldProps} />

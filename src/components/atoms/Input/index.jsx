@@ -3,20 +3,24 @@ import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import { Autocomplete } from '@material-ui/lab'
 
-const Input = ({ value, type, options, onChange, label, classes, ...props }) => {
+const Input = ({ value, type, options, onChange, label, classes, defaultValue, ...props }) => {
   const inputProps = {
     onChange,
     type,
     classes,
     label,
+    defaultValue,
   }
 
   if (type === 'autocomplete') return (
     <Autocomplete
       options={options}
-      onChange={onChange}
+      onChange={(e, value) => onChange(value)}
+      defaultValue={defaultValue}
       getOptionLabel={option => option.label}
-      renderInput={params => <TextField {...params} {...inputProps} label={label} variant='outlined' />}
+      renderInput={params => {
+        return <TextField {...params} {...inputProps} label={label} variant='outlined' />
+      }}
     />
   )
   return <TextField {...inputProps} variant='outlined' />
