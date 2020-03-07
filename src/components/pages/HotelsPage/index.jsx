@@ -1,12 +1,11 @@
 import React from 'react'
 import throttle from 'lodash.throttle'
+import { isMobile } from 'react-device-detect'
 
 import { Context } from '../../../services/context'
-import Main from '../../templates/Main'
 import { hotels } from '../../../api/responses'
-import HotelList from '../../molecules/Hotel/List'
-import HotelFilter from '../../molecules/Hotel/Filter'
-import { Wrapper } from './styled'
+import Desktop from './desktop'
+import Mobile from './mobile'
 
 class HotelsPage extends React.Component {
   static contextType = Context
@@ -43,9 +42,9 @@ class HotelsPage extends React.Component {
           localStorage.setItem('filterName', name)
           localStorage.setItem('filterRating', rating)
         })
-      }, 1000)
+      }, 1500)
     }
-  }, 800)
+  }, 1000)
 
   matchedHotels = () => {
     const { filter: { name, rating } } = this.state
@@ -66,27 +65,22 @@ class HotelsPage extends React.Component {
 
   render() {
     const { state } = this.context
-    const { filter, isFetching } = this.state
+    const { filter, page } = this.state
     const matchedQuantity = this.matchedHotels().length
     const hasMore = matchedQuantity !== state.hotels.length
     const noHotel = matchedQuantity === 0
 
-    return (
-      <Main>
-        <Wrapper>
-          {<HotelFilter filter={filter} changeFilter={this.changeFilter} />}
+    const props = {
+      filter,
+      fetchHotels: this.fetchHotels,
+      hasMore,
+      changeFilter: this.changeFilter,
+      hotels: state.hotels,
+      page,
+      noHotel
+    }
 
-          <HotelList
-            noHotel={noHotel}
-            fetchHotels={this.fetchHotels}
-            page={state.page}
-            hasMore={hasMore}
-            hotels={state.hotels}
-            isFetching={isFetching}
-          />
-        </Wrapper>
-      </Main>
-    )
+    return isMobile ? <Mobile {...props} /> : <Desktop {...props} />
   }
 }
 

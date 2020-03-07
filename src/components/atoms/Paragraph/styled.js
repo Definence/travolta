@@ -6,6 +6,6 @@ export const StyledParagraph = styled.p`
   font-weight: ${(props) => props.weight || '500'};
   font-family: ${fonts.primary};
   margin: 0.2rem 0;
-  font-size: 0.9rem;
+  font-size: ${({ size }) => size || '0.9rem'};
   text-align: justify;
 `
