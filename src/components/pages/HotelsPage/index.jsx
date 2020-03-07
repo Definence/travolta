@@ -10,7 +10,14 @@ import { Wrapper } from './styled'
 
 class HotelsPage extends React.Component {
   static contextType = Context
-  state = { page: 0, isFetching: false, filter: { name: '', rating: undefined } }
+
+  constructor(props) {
+    super(props)
+    const name = localStorage.getItem('filterName')
+    const rating = parseInt(localStorage.getItem('filterRating'))
+    const filter = { name: name || '', rating: rating }
+    this.state = { page: 0, isFetching: false, filter }
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     const { isFetching } = this.state
@@ -23,7 +30,7 @@ class HotelsPage extends React.Component {
 
       setTimeout(() => {
         const { dispatch } = this.context
-        const { page } = this.state
+        const { page, filter: { name, rating } } = this.state
         const perPage = 10
         const matchedHotels = this.matchedHotels()
         const fetchedHotels = matchedHotels.slice(page * perPage, (page + 1) * perPage)
@@ -32,17 +39,21 @@ class HotelsPage extends React.Component {
         this.setState((prevState) => ({
           page: prevState.page + 1,
           isFetching: false
-        }))
+        }), () => {
+          localStorage.setItem('filterName', name)
+          localStorage.setItem('filterRating', rating)
+        })
       }, 1000)
     }
   }, 800)
 
   matchedHotels = () => {
     const { filter: { name, rating } } = this.state
+
     return hotels.filter((h) => {
       return (
-        (name === '' || (h.name.toLowerCase().includes(name.toLowerCase()))) &&
-        (!rating || (Math.floor(h.hotel_rating) === rating))
+        (name === '' || (h.name.toLowerCase().includes(name.toLowerCase())))
+          && (!rating || (Math.floor(h.hotel_rating) === rating))
       )
     })
   }

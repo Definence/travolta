@@ -14,8 +14,8 @@ const HoteLFilter = ({ filter: { name, rating }, changeFilter }) => {
     <Wrapper>
       <Heading level={3}>Filter Box</Heading>
       <Input pure label='Filter by hotel name' value={name} onChange={onChangeName} />
-
       <Heading level={3}>Filter by rating</Heading>
+
       <Box display='flex' flexDirection='column'>
         {[1,2,3,4,5].map((q) => {
           const isActive = q === rating
@@ -30,7 +30,6 @@ const HoteLFilter = ({ filter: { name, rating }, changeFilter }) => {
           )
         }
       </Box>
-      <HotelStars />
     </Wrapper>
   )
 }
