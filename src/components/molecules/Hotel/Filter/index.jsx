@@ -3,12 +3,14 @@ import Box from '@material-ui/core/Box'
 
 import { Wrapper } from './styled'
 import Heading from '../../../atoms/Heading'
+import Button from '../../../atoms/Button'
 import Input from '../../../atoms/Input'
 import HotelStars from '../Stars'
 
 const HoteLFilter = ({ filter: { name, rating }, changeFilter }) => {
   const onChangeName = ({ target: { value } }) => changeFilter({ name: value })
   const onChangeRating = (curRating) => changeFilter({ rating: curRating })
+  const onResetFilter = () => changeFilter({ rating: null, name: '' })
 
   return (
     <Wrapper>
@@ -30,6 +32,8 @@ const HoteLFilter = ({ filter: { name, rating }, changeFilter }) => {
           )
         }
       </Box>
+
+      <Button kind='primary' onClick={onResetFilter}>Reset</Button>
     </Wrapper>
   )
 }

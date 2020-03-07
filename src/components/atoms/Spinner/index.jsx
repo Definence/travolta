@@ -1,6 +1,4 @@
-import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import Box from '@material-ui/core/Box'
 
 import { palette } from '../../../constants/theme'
 
