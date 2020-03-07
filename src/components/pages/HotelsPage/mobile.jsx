@@ -1,7 +1,6 @@
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import Box from '@material-ui/core/Box'
-import styled from 'styled-components'
 
 import Main from '../../templates/Main'
 import HotelList from '../../molecules/Hotel/List'

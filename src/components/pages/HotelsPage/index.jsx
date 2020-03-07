@@ -44,7 +44,7 @@ class HotelsPage extends React.Component {
         })
       }, 1500)
     }
-  }, 1000)
+  }, 800)
 
   matchedHotels = () => {
     const { filter: { name, rating } } = this.state
