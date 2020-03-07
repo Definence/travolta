@@ -2,7 +2,7 @@ import React from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import Box from '@material-ui/core/Box'
 
-import { HotelBlock, StyledButton } from './styled'
+import { HotelBlock, StyledButton, Wrapper } from './styled'
 import Heading from '../../../atoms/Heading'
 import Image from '../../../atoms/Image'
 import Paragraph from '../../../atoms/Paragraph'
@@ -24,7 +24,7 @@ const HotelList = (props) => {
 
         <Box ml='1rem' display='flex' flexDirection='column' justifyContent='space-around'>
           <Heading level={4}>{name}</Heading>
-          <HotelStars quantity={hotel_rating} />
+          <HotelStars quantity={Math.floor(hotel_rating)} />
           <Paragraph>{addressItems.join(', ')}</Paragraph>
         </Box>
 
@@ -34,14 +34,20 @@ const HotelList = (props) => {
   }
 
   return (
-    <InfiniteScroll
-      pageStart={props.page}
-      loadMore={props.fetchHotels}
-      hasMore={props.matchedQuantity !== props.hotels.length}
-      loader={<Box key={0} m='1rem'><Spinner /></Box>}
-    >
-      {props.hotels.map(buildHotelBlock)}
-    </InfiniteScroll>
+    <Wrapper>
+      {props.noHotel ? (
+        <Heading>No hotels found</Heading>
+      ) : (
+        <InfiniteScroll
+          pageStart={props.page}
+          loadMore={props.fetchHotels}
+          hasMore={props.hasMore}
+          loader={<Box key={0} m='1rem'><Spinner /></Box>}
+        >
+          {props.hotels.map(buildHotelBlock)}
+        </InfiniteScroll>
+      )}
+    </Wrapper>
   )
 }
 

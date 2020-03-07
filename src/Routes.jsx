@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
 function Routes() {
   return (
-    <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<Spinner center />}>
       <ContextProvider>
         <Router>
           <Switch>

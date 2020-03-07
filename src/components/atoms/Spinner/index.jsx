@@ -1,4 +1,6 @@
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import Box from '@material-ui/core/Box'
 
 import { palette } from '../../../constants/theme'
 
@@ -20,6 +22,16 @@ const Spinner = styled.div`
   &.multi {
     border-bottom-color: ${palette.white[0]};
   }
+
+  ${({ center }) => center && {
+    position: 'absolute',
+    top: '50%',
+    left: '50%'
+  }}
 `
+
+Spinner.defaultProps = {
+  center: false
+}
 
 export default Spinner

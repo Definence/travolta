@@ -16,3 +16,7 @@ export const HotelBlock = styled(Box)`
 export const StyledButton = styled(Button)`
   margin: auto 0 auto auto;
 `
+
+export const Wrapper = styled(Box)`
+  flex: 1;
+`

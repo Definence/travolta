@@ -10,7 +10,7 @@ import Button from '../../atoms/Button'
 
 const Main = ({ children }) => (
   <Wrapper>
-    <Container maxWidth='md'>
+    <Container width='80%'>
       <Box display='flex' justifyContent='space-between' width='100%'>
         <Box display='flex' alignItems='center'>
           <Icon name='circle' fill={palette.pink[0]} />
