@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
+import { isMobile } from 'react-device-detect'
 
 import { ContextProvider } from './services/context'
-import { palette } from './constants/theme'
+import { palette, fonts } from './constants/theme'
 import Spinner from './components/atoms/Spinner'
 
 const SearchPage = React.lazy(() => import('./components/pages/SearchPage'))
@@ -12,7 +13,8 @@ const HotelsPage = React.lazy(() => import('./components/pages/HotelsPage'))
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    background-color: ${palette.grayscale[1]};
+    background-color: ${isMobile ? palette.grayscale[1] : palette.grayscale[0]};
+    font-family: ${fonts.primary};
   }
 `
 

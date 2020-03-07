@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Box from '@material-ui/core/Box'
 
 import { palette } from '../../../constants/theme'
+import Form from '../../atoms/Form'
 
 export const StyledContent = styled(Box)`
   background-color: ${palette.white[0]};
@@ -10,7 +11,7 @@ export const StyledContent = styled(Box)`
   border-radius: 10px;
 `
 
-export const StyledForm = styled.form`
+export const StyledForm = styled(Form)`
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 1rem;

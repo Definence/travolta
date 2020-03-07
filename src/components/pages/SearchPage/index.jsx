@@ -6,6 +6,7 @@ import { Context } from '../../../services/context'
 import Desktop from './desktop'
 import Mobile from './mobile'
 import { destinations } from '../../../api/responses'
+import MainTemplate from '../../templates/Main'
 
 class SearchPage extends React.Component {
   static contextType = Context
@@ -18,12 +19,20 @@ class SearchPage extends React.Component {
 
   render() {
     const destinationOpts = destinations.map((d) => ({ label: d.name, value: d.id }))
+    const initialValues = {
+      adults: 1,
+      check_in: "2020-03-25",
+      check_out: "2020-03-25",
+      children: 1
+    }
+
     const props = {
       destinationOpts,
+      initialValues,
       handleSubmit: this.handleSubmit
     }
 
-    return isMobile ? <Mobile {...props} /> : <Desktop {...props} />
+    return <MainTemplate>{isMobile ? <Mobile {...props} /> : <Desktop {...props} />}</MainTemplate>
   }
 }
 

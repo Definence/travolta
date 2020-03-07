@@ -5,13 +5,14 @@ import { Autocomplete } from '@material-ui/lab'
 
 const Input = ({
   value, type, options, onChange, label, classes, defaultValue, invalid,
-  pure
+  pure, fullWidth
 }) => {
   const inputProps = {
     onChange,
     type,
     classes,
     label,
+    fullWidth,
     error: invalid,
     ...!pure && {InputLabelProps: { shrink: true }},
     defaultValue
@@ -50,6 +51,10 @@ Input.propTypes = {
       value: PropTypes.any.isRequired
     }).isRequired
   )
+}
+
+Input.defaultProps = {
+  fullWidth: false
 }
 
 export default Input
