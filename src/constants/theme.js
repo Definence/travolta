@@ -3,7 +3,7 @@ export const palette = {
   grayscale: ['rgba(126, 133, 165, 0.2)', 'rgba(126, 133, 165, 0.1)'],
   white: ['rgba(247, 247, 247, 1)', 'white'],
   red: ['red'],
-  dark: ['#333333']
+  dark: ['#333', '#666']
 }
 
 export const fonts = {

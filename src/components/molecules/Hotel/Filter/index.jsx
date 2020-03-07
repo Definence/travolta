@@ -1,41 +1,23 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
+import { isMobile } from 'react-device-detect'
 
-import { Wrapper } from './styled'
-import Heading from '../../../atoms/Heading'
-import Button from '../../../atoms/Button'
-import Input from '../../../atoms/Input'
-import HotelStars from '../Stars'
+import Mobile from './mobile'
+import Desktop from './desktop'
 
-const HoteLFilter = ({ filter: { name, rating }, changeFilter }) => {
+const HotelFilter = ({ filter: { name, rating }, changeFilter }) => {
   const onChangeName = ({ target: { value } }) => changeFilter({ name: value })
   const onChangeRating = (curRating) => changeFilter({ rating: curRating })
   const onResetFilter = () => changeFilter({ rating: null, name: '' })
 
-  return (
-    <Wrapper>
-      <Heading level={3}>Filter Box</Heading>
-      <Input pure label='Filter by hotel name' value={name} onChange={onChangeName} />
-      <Heading level={3}>Filter by rating</Heading>
+  const props = {
+    onChangeName,
+    onChangeRating,
+    onResetFilter,
+    name,
+    rating
+  }
 
-      <Box display='flex' flexDirection='column'>
-        {[1,2,3,4,5].map((q) => {
-          const isActive = q === rating
-          return (
-            <HotelStars
-              key={q}
-              isActive={isActive}
-              rating={rating}
-              quantity={q}
-              onClick={() => onChangeRating(q)} />
-            )}
-          )
-        }
-      </Box>
-
-      <Button kind='primary' onClick={onResetFilter}>Reset</Button>
-    </Wrapper>
-  )
+  return isMobile ? <Mobile {...props} /> : <Desktop {...props} />
 }
 
-export default HoteLFilter
+export default HotelFilter

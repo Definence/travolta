@@ -4,7 +4,7 @@ import { palette } from '../../../constants/theme'
 
 const bgColor = ({ kind }) => {
   if (kind === 'primary') return palette.pink[0]
-  if (kind === 'secondary') return palette.grayscale[0]
+  if (kind === 'secondary') return palette.dark[1]
 }
 
 export default styled.button`

@@ -1,4 +1,5 @@
 import React from 'react'
+import Box from '@material-ui/core/Box'
 
 import Main from '../../templates/Main'
 import HotelList from '../../molecules/Hotel/List'
@@ -9,7 +10,9 @@ const Desktop = ({ filter, noHotel, hasMore, fetchHotels, hotels, page, changeFi
   return (
     <Main>
       <Wrapper>
-        <HotelFilter filter={filter} changeFilter={changeFilter} />
+        <Box mr='1rem'>
+          <HotelFilter filter={filter} changeFilter={changeFilter} />
+        </Box>
 
         <HotelList
           noHotel={noHotel}
