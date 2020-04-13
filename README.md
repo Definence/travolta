@@ -1,4 +1,4 @@
-Live Demo [HERE](https://travolta-tour.herokuapp.com/)
+### Live Demo [HERE](https://travolta-tour.herokuapp.com/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
